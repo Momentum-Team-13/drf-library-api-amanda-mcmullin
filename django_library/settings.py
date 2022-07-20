@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'debug_toolbar',
     'django_extensions',
+    'django_filters',
     'rest_framework',
     'books',
 ]
@@ -129,6 +130,9 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# this has to be set if you have created a custom user model
+AUTH_USER_MODEL = 'books.User'
+
 # this is for django debug toolbar
 INTERNAL_IPS = [
     "127.0.0.1",
@@ -144,6 +148,9 @@ LOGIN_URL = "auth_login"
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_FILTER_BACKENDS': [
+        'django_filters.rest_framework.DjangoFilterBackend'
     ]
 }
 
