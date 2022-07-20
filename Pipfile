@@ -13,6 +13,7 @@ pygments = "*"
 psycopg2-binary = "*"
 django-on-heroku = "*"
 gunicorn = "*"
+django-registration-redux = "*"
 
 [dev-packages]
 
