@@ -13,20 +13,19 @@ class User(AbstractUser):
 
 class Book(models.Model):
     title = models.CharField(max_length=255)
-    author_first_name = models.CharField(max_length=100)
-    author_last_name = models.CharField(max_length=100)
+    author = models.CharField(max_length=125, default="unknown")
     publication_date = models.DateField()
     genre = models.CharField(max_length=100)
     featured = models.BooleanField()
     #reader = models.ForeignKey(User, on_delete=models.CASCADE, related_name='books')
 
     def __str__(self):
-        return self.title, self.author_first_name, self.author_last_name, self.publication_date, self.genre, self.featured
+        return self.title
+
 
     class Meta:
         constraints = [
-            models.UniqueConstraint(fields=['title', 'author_first_name', 'author_last_name'],
-            name='unique_book')
+            models.UniqueConstraint(fields=['title', 'author'], name='unique_book')
         ]
 
 
