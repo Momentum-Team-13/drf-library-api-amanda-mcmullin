@@ -30,20 +30,20 @@ class Book(models.Model):
 
 
 class Tracker(models.Model):
-    WANT_TO_READ = 'WTR'
-    READING = 'RING'
-    READ = 'RD'
+    WANT_TO_READ = 'Want to read'
+    READING = 'Reading'
+    READ = 'Read'
     STATUS_CHOICES = [
         (WANT_TO_READ, 'Want to read'),
         (READING, 'Reading'),
         (READ, 'Read'),
     ]
-    status = models.CharField(max_length=4, choices=STATUS_CHOICES, default=WANT_TO_READ)
+    status = models.CharField(max_length=12, choices=STATUS_CHOICES, default=WANT_TO_READ)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='trackers')
     book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='books')
 
     def __str__(self):
-        return self.status
+        return f"{self.book}  -  {self.status}"
 
 
 class Note(models.Model):

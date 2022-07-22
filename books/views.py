@@ -1,7 +1,15 @@
-from django.shortcuts import render, redirect
-from .models import Book, Tracker
+from books.serializers import BookSerializer
+from rest_framework import generics
+from .models import Book
+
 
 # Create your views here.
-def BookListView(request):
-    books = Book.objects.all()
-    return ({"books": books})
+# get all books, get featured books, all books by status?, create books, search books(author or title)
+# BookList  # *get post*
+class BookList(generics.ListCreateAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
+
+class BookDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Book.objects.all()
+    serializer_class = BookSerializer
