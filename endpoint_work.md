@@ -120,3 +120,31 @@ if settings.DEBUG:
     urlpatterns += [
         path("__debug__/", include(debug_toolbar.urls)),
     ]
+
+
+
+
+
+      "id": 1,
+        "title": "Unmasked",
+        "author": "Paul Holes",
+        "publication_date": "2022-04-26",
+        "genre": "Memoir",
+        "featured": false
+    },
+    {
+        "id": 3,
+        "title": "Whoever Fights Monster",
+        "author": "Robert Ressler",
+        "publication_date": "2015-05-19",
+        "genre": "Memoir",
+        "featured": false
+    },
+    {
+        "id": 2,
+        "title": "I'll Be Gone In The Dark",
+        "author": "Michelle McNamara",
+        "publication_date": "2019-02-26",
+        "genre": "Memoir",
+        "featured": true
+    }

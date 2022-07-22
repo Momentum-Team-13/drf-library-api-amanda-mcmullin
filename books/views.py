@@ -1,4 +1,5 @@
-from books.serializers import BookSerializer
+from django.http import QueryDict
+from books.serializers import BookSerializer, FeaturedBookSerializer
 from rest_framework import generics
 from .models import Book
 
@@ -13,3 +14,9 @@ class BookList(generics.ListCreateAPIView):
 class BookDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+
+class FeaturedBook(generics.ListAPIView):
+        queryset = Book.objects.values('featured').distinct()
+        serializer_class = FeaturedBookSerializer
+        # ordering = ('title')
+
