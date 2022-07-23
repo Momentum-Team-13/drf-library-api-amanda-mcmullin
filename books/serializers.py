@@ -1,6 +1,12 @@
 from rest_framework import serializers
-from .models import Book
+from .models import Book, Tracker, User
 
+class UserSerializer(serializers.ModelSerializer):
+    tracker = serializers.PrimaryKeyRelatedField(many=True, queryset=Tracker.objects.all())
+
+    class Meta:
+        model = User
+        fields = ['id', 'username', 'tracker']
 
 class BookSerializer(serializers.ModelSerializer):
 
