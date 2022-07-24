@@ -49,8 +49,8 @@ class Tracker(models.Model):
 
 class Note(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notes')
-    book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name='notes') 
-    note = models.TextField(max_length=250)
+    book = models.ForeignKey(Book, on_delete=models.SET_NULL, related_name='notes', null=True) 
+    note = models.TextField(max_length=350)
     created_at = models.DateTimeField(auto_now_add=True)
     public = models.BooleanField()
     page_number = models.CharField(max_length=100, null=True, blank=True)

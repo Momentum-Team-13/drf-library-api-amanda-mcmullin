@@ -9,6 +9,8 @@ urlpatterns = [
     path('books/featured/', views.FeaturedBookView.as_view()),
     path('books/<int:pk>/delete/', views.BookDeleteView.as_view()),
     path('books/create/', views.BookCreateView.as_view()),
+    path('books/<int:pk>/notes', views.NoteListView.as_view()),
+    path('books/<int:pk>/notes/<int:note_pk>/update', views.NoteUpdateView.as_view()),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns)

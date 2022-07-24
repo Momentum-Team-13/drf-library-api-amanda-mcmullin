@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Book, Tracker, User
+from .models import Book, Tracker, User, Note
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -36,3 +36,10 @@ class TrackerSerializer(serializers.ModelSerializer):
         model = Tracker
         fields = ['id', 'status', 'book', 'user', 'book_details', 'book_status']
 
+
+class NoteSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
+    class Meta:
+        model = Note
+        fields = "__all__"
