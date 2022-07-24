@@ -1,35 +1,54 @@
 from django.http import QueryDict
-from books.serializers import BookSerializer, FeaturedBookSerializer, UserSerializer
+from books.serializers import BookSerializer, FeaturedBookSerializer, TrackerSerializer, UserSerializer
 from rest_framework import generics, permissions
-from .models import Book, User
-from .permissions import IsOwnerOrReadOnly
+from .models import Book, User, Tracker
+from .filters import IsOwnerFilterBackend
+from .permissions import IsOwner
+from django_filters.rest_framework import DjangoFilterBackend
+
 
 # Create your views here.
 class UserList(generics.ListAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
 
-# get all books, get featured books, all books by status?, create books, search books(author or title)
+#WORKS
+# get all books,   
 # BookList  # *get post*
 class BookListView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
-class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
+#WORKS
+#view book details
+class BookDetailView(generics.RetrieveAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
 
+
+#***DOES NOT WORK AS IT SHOULD***needs work
+#get featured books, all books by status?,
 class FeaturedBookView(generics.ListAPIView):
     queryset = Book.objects.values('featured').distinct()
     serializer_class = FeaturedBookSerializer
     # ordering = ('title')
 
-class BookDeleteView(generics.DestroyAPIView):
+#***delete function appears but not limited to admin only - needs work
+#delete book - ADMIN SHOULD BE ONLY ACCT(S) PERMITTED TO DELETE
+class BookDeleteView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permission_class = [permissions.IsAdminUser]
 
+##NEEDS WORK - TEST USER CAN ADD BOOK AS ADMIN - NO BUENO**
+#create books - user will see list of books and be able to add a new book
 class BookCreateView(generics.ListCreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
     permissions_class = [permissions.IsAuthenticatedOrReadOnly]
+
+
+#search books(author or title)
+
+
+#NOTES
