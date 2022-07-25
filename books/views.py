@@ -1,11 +1,7 @@
-from django.http import QueryDict
-from books.serializers import BookSerializer, FeaturedBookSerializer, TrackerSerializer, UserSerializer, NoteSerializer
+from books.serializers import BookSerializer, FeaturedBookSerializer, UserSerializer, NoteSerializer
 from rest_framework import generics, permissions
-from .models import Book, User, Tracker, Note
-from .filters import IsOwnerFilterBackend
-from .permissions import IsOwner
-from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.response import Response
+from .models import Book, User, Note
+
 
 
 # Create your views here.
@@ -32,7 +28,7 @@ class BookDetailView(generics.RetrieveAPIView):
 class FeaturedBookView(generics.ListAPIView):
     queryset = Book.objects.values('featured').distinct()
     serializer_class = FeaturedBookSerializer
-    # ordering = ('title')
+
 
 #***delete function appears but not limited to admin only - needs work
 #delete book - ADMIN SHOULD BE ONLY ACCT(S) PERMITTED TO DELETE
@@ -49,9 +45,6 @@ class BookCreateView(generics.ListCreateAPIView):
     permissions_class = [permissions.IsAuthenticatedOrReadOnly]
 
 
-#search books(author or title)
-
-
 #list of all notes
 class NoteListCreateView(generics.ListCreateAPIView):
     queryset = Note.objects.all()
@@ -59,3 +52,7 @@ class NoteListCreateView(generics.ListCreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+
+
+#search books(author or title)

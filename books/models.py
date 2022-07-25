@@ -19,7 +19,7 @@ class Book(models.Model):
     genre = models.CharField(max_length=100)
     featured = models.BooleanField()
     owner = models.ForeignKey(User, on_delete=models.CASCADE, related_name='books')
- 
+
     def __str__(self):
         return self.title
 
